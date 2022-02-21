@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Login from "./Pages/Login";
+import Profile from "./Pages/Profile";
+import FailedLogin from "./Pages/FailedLogin";
 
 function App() {
+  const [userName, setUserName] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    setUserName("ok");
+    setPassword("ok");
+    console.log(userName);
+    console.log(password);
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/failedLogin" component={FailedLogin} />
+          <Route
+            exact
+            path="/login"
+            component={Login}
+            userName={userName}
+            password={password}
+          />
+          {/* <Route exact path="/login" component={Login} /> */}
+          <Route
+            exact
+            path="/Profile"
+            component={() => <Profile authorized={true} />}
+          />
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
 
